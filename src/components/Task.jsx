@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default class Task extends React.Component {
   constructor(props) {
@@ -54,3 +54,35 @@ export default class Task extends React.Component {
     }
   }
 }
+
+export const TaskFunc = ({ children, removeTask, index }) => {
+  // hooks
+  const [isEditState, setisEditState] = useState({ isEdit: false });
+
+  const handleClickEdit = () => {
+    setisEditState({ isEdit: true });
+  };
+  // const { isEdit } = isEditState;
+  const handleClickRemove = () => {
+    removeTask(index);
+  };
+  const handleClickSave = () => {
+    // To Do -> Tomorrow
+    const value = this.newTxt.current.value;
+    this.props.updateTask(this.props.index, value);
+    this.setState({ isEdit: false });
+  };
+  // boolean(true false) ? return 1 : return 2
+  isEditState.isEdit ? (
+    <div className="box">
+      <div>{children}</div>
+      <button onClick={handleClickEdit}>Edit</button>
+      <button onClick={handleClickRemove}>Remove</button>
+    </div>
+  ) : (
+    <div className="box">
+      <textarea ref={this.newTxt} defaultValue={children}></textarea>
+      <button onClick={handleClickSave}>Save</button>
+    </div>
+  );
+};
