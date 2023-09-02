@@ -54,3 +54,13 @@ export default class Task extends React.Component {
     }
   }
 }
+
+export const TaskFunc = () => {
+  return (
+    <div className="box">
+      <div>{this.props.children}</div>
+      <button onClick={this.handleClickEdit}>Edit</button>
+      <button onClick={this.handleClickRemove}>Remove</button>
+    </div>
+  );
+};
